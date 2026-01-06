@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="./favicon.ico" />
+  <title>KEYWAVE Editor v0</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <img class="brand-logo" src="./assets/img/KEYWAVE%20Logo.svg" alt="Keywave logo" />
+      </div>
+      <div class="topbar-group">
+        <input id="importSceneInput" type="file" accept="application/json" hidden />
+        <button class="kw-btn" id="importSceneBtn" type="button">Import JSON</button>
+        <button class="kw-btn kw-btn--primary" id="exportSceneBtn" type="button">Export</button>
+        <button class="kw-btn" id="importSvgBtn" type="button">Import SVG</button>
+      </div>
+      <div class="topbar-divider" aria-hidden="true"></div>
+      <div class="topbar-group">
+        <button class="kw-btn" id="saveSceneBtn" type="button">Save Local</button>
+        <button class="kw-btn" id="loadSceneBtn" type="button">Load Local</button>
+        <button class="kw-btn" id="settingsBtn" type="button">Settings</button>
+      </div>
+      <a class="topbar-link" href="https://spiriturban.github.io/" target="_blank" rel="noopener noreferrer">
+        SpiritUrban Tools
+      </a>
+    </header>
+
+    <main class="main">
+      <!-- SCENE -->
+      <section class="scene-wrap">
+        <button class="kw-list-btn" id="assetListBtn" type="button">Show list</button>
+        <div class="kw-asset-panel" id="assetListPanel"></div>
+        <div class="scene" id="sceneRoot">
+          <!-- Inline SVG demo scene -->
+          <svg class="scene-svg" viewBox="0 0 600 350">
+            <g id="logo" data-kw-asset="logo">
+              <circle cx="0" cy="0" r="70" />
+              <text x="0" y="0" text-anchor="middle">LOGO</text>
+            </g>
+
+            <g id="badge" data-kw-asset="badge">
+              <rect x="-80" y="-60" width="160" height="120" rx="18" />
+              <text x="0" y="0" text-anchor="middle">BADGE</text>
+            </g>
+
+            <g id="triangle" data-kw-asset="triangle">
+              <polygon points="0,-45 45,35 -45,35" />
+              <text x="0" y="8" text-anchor="middle">TRI</text>
+            </g>
+
+            <g id="blob" data-kw-asset="blob">
+              <path d="M -40 0 C -40 -35 -10 -55 10 -45 C 50 -25 45 25 15 45 C -20 60 -40 35 -40 0 Z" />
+              <text x="0" y="8" text-anchor="middle">BLOB</text>
+            </g>
+            <g id="flower" data-kw-asset="flower">
+              <path d="M 0 -45 C 10 -65 35 -65 45 -45 C 65 -35 65 -10 45 0 C 65 10 65 35 45 45 C 35 65 10 65 0 45 C -10 65 -35 65 -45 45 C -65 35 -65 10 -45 0 C -65 -10 -65 -35 -45 -45 C -35 -65 -10 -65 0 -45 Z" />
+              <text x="0" y="8" text-anchor="middle">FLOW</text>
+            </g>
+
+            <g id="kwHandles"></g>
+          </svg>
+        </div>
+      </section>
+
+      <!-- RIGHT PANEL -->
+      <aside class="panel">
+        <h3>Inspector</h3>
+        <div class="kv">
+          <div class="k">selectedAssetId</div>
+          <div class="v" id="inspectorSelected">--</div>
+        </div>
+        <div class="kw-group" data-group="keyframes">
+          <div class="kw-group-header">
+            <div class="kw-group-title">Add keyframe</div>
+            <button class="kw-group-toggle" type="button" aria-label="Toggle group">
+              <span class="kw-caret"></span>
+            </button>
+          </div>
+          <div class="kw-group-divider"></div>
+          <div class="kw-group-body">
+            <div class="kw-inspector-actions">
+              <button type="button" data-add-kf="x">+ X</button>
+              <button type="button" data-add-kf="y">+ Y</button>
+              <button type="button" data-add-kf="rotation">+ Rot</button>
+              <button type="button" data-add-kf="scale">+ Scale</button>
+              <button type="button" data-add-kf="opacity">+ Opacity</button>
+              <button type="button" data-add-kf="visible">+ Visibility</button>
+              <button type="button" data-add-kf="fill">+ Fill</button>
+          <button type="button" data-add-kf="blob">+ Blob</button>
+          <button type="button" data-add-kf="wiggle">+ Wiggle</button>
+          <button type="button" data-add-kf="wiggleSpeed">+ Wiggle Speed</button>
+          <button type="button" data-add-kf="wave">+ Wave</button>
+          <button type="button" data-add-kf="waveSpeed">+ Wave Speed</button>
+          <button type="button" data-add-kf="pinch">+ Pinch</button>
+          <button type="button" data-add-kf="twist">+ Twist</button>
+          <button type="button" data-add-kf="shearX">+ Shear X</button>
+          <button type="button" data-add-kf="shearY">+ Shear Y</button>
+          <button type="button" data-add-kf="jitterX">+ Jitter X</button>
+          <button type="button" data-add-kf="jitterY">+ Jitter Y</button>
+          <button type="button" data-add-kf="jitterSpeed">+ Jitter Speed</button>
+        </div>
+          </div>
+        </div>
+        <div class="kw-group" data-group="pivot">
+          <div class="kw-group-header">
+            <div class="kw-group-title">Pivot</div>
+            <button class="kw-group-toggle" type="button" aria-label="Toggle group">
+              <span class="kw-caret"></span>
+            </button>
+          </div>
+          <div class="kw-group-divider"></div>
+          <div class="kw-group-body">
+            <div class="kw-pivot-fields">
+              <label class="kw-field">
+                <span class="kw-field-label">Pivot X</span>
+                <input id="pivotXInput" type="number" step="1" />
+              </label>
+              <label class="kw-field">
+                <span class="kw-field-label">Pivot Y</span>
+                <input id="pivotYInput" type="number" step="1" />
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="kw-group" data-group="appearance">
+          <div class="kw-group-header">
+            <div class="kw-group-title">Appearance</div>
+            <button class="kw-group-toggle" type="button" aria-label="Toggle group">
+              <span class="kw-caret"></span>
+            </button>
+          </div>
+          <div class="kw-group-divider"></div>
+          <div class="kw-group-body">
+            <div class="kw-appearance-row">
+              <label class="kw-field kw-opacity-field">
+                <span class="kw-field-label">Opacity</span>
+                <input id="opacityInput" type="number" min="0" max="1" step="0.01" />
+              </label>
+              <label class="kw-checkbox">
+                <input id="visibilityInput" type="checkbox" />
+                <span>Visible</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="kw-group" data-group="fill">
+          <div class="kw-group-header">
+            <div class="kw-group-title">Fill</div>
+            <button class="kw-group-toggle" type="button" aria-label="Toggle group">
+              <span class="kw-caret"></span>
+            </button>
+          </div>
+          <div class="kw-group-divider"></div>
+          <div class="kw-group-body">
+            <div class="kw-fill-row">
+              <label class="kw-field kw-fill-field">
+                <span class="kw-field-label">Color</span>
+                <input id="fillColorInput" type="color" />
+              </label>
+              <label class="kw-field kw-fill-field">
+                <span class="kw-field-label">Opacity</span>
+                <input id="fillOpacityInput" type="number" min="0" max="1" step="0.01" />
+              </label>
+              <label class="kw-field kw-fill-field">
+                <span class="kw-field-label">Gradient</span>
+                <select id="fillGradientSelect">
+                  <option value="">None</option>
+                  <option value="linear">Linear</option>
+                  <option value="linear-vertical">Linear (Vertical)</option>
+                  <option value="linear-diagonal">Linear (Diagonal)</option>
+                  <option value="radial">Radial</option>
+                </select>
+              </label>
+              <label class="kw-field kw-fill-field">
+                <span class="kw-field-label">Angle</span>
+                <input id="fillGradientAngleInput" type="number" min="0" max="360" step="1" />
+              </label>
+              <label class="kw-field kw-fill-field">
+                <span class="kw-field-label">Gradient color</span>
+                <input id="fillGradientColorInput" type="color" />
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="kw-group" data-group="stroke">
+          <div class="kw-group-header">
+            <div class="kw-group-title">Stroke</div>
+            <button class="kw-group-toggle" type="button" aria-label="Toggle group">
+              <span class="kw-caret"></span>
+            </button>
+          </div>
+          <div class="kw-group-divider"></div>
+          <div class="kw-group-body">
+            <div class="kw-stroke-row">
+              <label class="kw-field kw-stroke-field">
+                <span class="kw-field-label">Color</span>
+                <input id="strokeColorInput" type="color" />
+              </label>
+              <label class="kw-field kw-stroke-field">
+                <span class="kw-field-label">Width</span>
+                <input id="strokeWidthInput" type="number" min="0" step="0.5" />
+              </label>
+              <label class="kw-field kw-stroke-field">
+                <span class="kw-field-label">Opacity</span>
+                <input id="strokeOpacityInput" type="number" min="0" max="1" step="0.01" />
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="kw-group" data-group="shape">
+          <div class="kw-group-header">
+            <div class="kw-group-title">Shape</div>
+            <button class="kw-group-toggle" type="button" aria-label="Toggle group">
+              <span class="kw-caret"></span>
+            </button>
+          </div>
+          <div class="kw-group-divider"></div>
+          <div class="kw-group-body">
+            <div class="kw-shape-row">
+              <label class="kw-field kw-shape-field">
+                <span class="kw-field-label">Width</span>
+                <input id="shapeWidthInput" type="number" step="1" />
+              </label>
+              <label class="kw-field kw-shape-field">
+                <span class="kw-field-label">Height</span>
+                <input id="shapeHeightInput" type="number" step="1" />
+              </label>
+              <label class="kw-field kw-shape-field">
+                <span class="kw-field-label">Radius</span>
+                <input id="shapeRadiusInput" type="number" step="1" />
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="kw-group" data-group="morph">
+          <div class="kw-group-header">
+            <div class="kw-group-title">Morph</div>
+            <button class="kw-group-toggle" type="button" aria-label="Toggle group">
+              <span class="kw-caret"></span>
+            </button>
+          </div>
+          <div class="kw-group-divider"></div>
+          <div class="kw-group-body">
+            <div class="kw-morph-row">
+              <label class="kw-field kw-morph-field">
+                <span class="kw-field-label">Blob</span>
+                <input id="blobInput" type="number" min="-1" max="1" step="0.01" />
+              </label>
+              <label class="kw-field kw-morph-field">
+                <span class="kw-field-label">Wiggle</span>
+                <input id="wiggleInput" type="number" min="0" max="1" step="0.01" />
+              </label>
+          <label class="kw-field kw-morph-field">
+            <span class="kw-field-label">Speed</span>
+            <input id="wiggleSpeedInput" type="number" min="0" step="0.1" />
+          </label>
+          <label class="kw-field kw-morph-field">
+            <span class="kw-field-label">Wave</span>
+            <input id="waveInput" type="number" min="0" max="1" step="0.01" />
+          </label>
+          <label class="kw-field kw-morph-field">
+            <span class="kw-field-label">Wave Speed</span>
+            <input id="waveSpeedInput" type="number" min="0" step="0.1" />
+          </label>
+          <label class="kw-field kw-morph-field">
+            <span class="kw-field-label">Pinch</span>
+            <input id="pinchInput" type="number" min="-1" max="1" step="0.01" />
+          </label>
+          <label class="kw-field kw-morph-field">
+            <span class="kw-field-label">Twist</span>
+            <input id="twistInput" type="number" min="-1" max="1" step="0.01" />
+          </label>
+          <label class="kw-field kw-morph-field">
+            <span class="kw-field-label">Shear X</span>
+            <input id="shearXInput" type="number" min="-1" max="1" step="0.01" />
+          </label>
+          <label class="kw-field kw-morph-field">
+            <span class="kw-field-label">Shear Y</span>
+            <input id="shearYInput" type="number" min="-1" max="1" step="0.01" />
+          </label>
+        </div>
+          </div>
+        </div>
+        <div class="kw-group" data-group="motion">
+          <div class="kw-group-header">
+            <div class="kw-group-title">Motion</div>
+            <button class="kw-group-toggle" type="button" aria-label="Toggle group">
+              <span class="kw-caret"></span>
+            </button>
+          </div>
+          <div class="kw-group-divider"></div>
+          <div class="kw-group-body">
+            <div class="kw-morph-row">
+              <label class="kw-field kw-morph-field">
+                <span class="kw-field-label">Jitter X</span>
+                <input id="jitterXInput" type="number" min="0" step="0.5" />
+              </label>
+              <label class="kw-field kw-morph-field">
+                <span class="kw-field-label">Jitter Y</span>
+                <input id="jitterYInput" type="number" min="0" step="0.5" />
+              </label>
+              <label class="kw-field kw-morph-field">
+                <span class="kw-field-label">Speed</span>
+                <input id="jitterSpeedInput" type="number" min="0" step="0.1" />
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="kw-group" data-group="layer">
+          <div class="kw-group-header">
+            <div class="kw-group-title">Layer</div>
+            <button class="kw-group-toggle" type="button" aria-label="Toggle group">
+              <span class="kw-caret"></span>
+            </button>
+          </div>
+          <div class="kw-group-divider"></div>
+          <div class="kw-group-body">
+            <div class="kw-layer-row">
+              <button type="button" id="layerDownBtn">- Layer</button>
+              <button type="button" id="layerUpBtn">+ Layer</button>
+              <label class="kw-field kw-layer-field">
+                <span class="kw-field-label">Value</span>
+                <input id="layerInput" type="number" step="1" />
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="kw-group" data-group="flip">
+          <div class="kw-group-header">
+            <div class="kw-group-title">Flip</div>
+            <button class="kw-group-toggle" type="button" aria-label="Toggle group">
+              <span class="kw-caret"></span>
+            </button>
+          </div>
+          <div class="kw-group-divider"></div>
+          <div class="kw-group-body">
+            <div class="kw-flip-row">
+              <button type="button" id="flipXBtn">Flip X</button>
+              <button type="button" id="flipYBtn">Flip Y</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <div class="kw-modal" id="svgImportModal">
+    <div class="kw-modal-card">
+      <div class="kw-modal-title">Load SVG</div>
+      <div class="kw-dropzone" id="svgDropzone">
+        Drop SVG here
+      </div>
+      <div class="kw-modal-actions">
+        <input id="svgFileInput" type="file" accept="image/svg+xml" hidden />
+        <button type="button" id="svgChooseBtn">Choose file</button>
+        <button type="button" id="svgSkipBtn">Skip</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="kw-modal is-hidden" id="settingsModal">
+    <div class="kw-modal-card">
+      <div class="kw-modal-title">Settings</div>
+      <div class="kw-settings-presets">
+        <button type="button" class="kw-btn kw-preset-btn" data-preset="fine" title="Undo 150ms / Keyframes 120ms">Fine</button>
+        <button type="button" class="kw-btn kw-preset-btn" data-preset="balanced" title="Undo 400ms / Keyframes 250ms">Balanced</button>
+        <button type="button" class="kw-btn kw-preset-btn" data-preset="coarse" title="Undo 900ms / Keyframes 600ms">Coarse</button>
+      </div>
+      <div class="kw-settings-row">
+        <label class="kw-field kw-settings-field">
+          <span class="kw-field-label">Undo debounce (ms)</span>
+          <input id="historyDebounceInput" type="number" min="50" max="2000" step="50" />
+        </label>
+        <label class="kw-field kw-settings-field">
+          <span class="kw-field-label">Keyframe sample (ms)</span>
+          <input id="keyframeSampleInput" type="number" min="50" max="2000" step="50" />
+        </label>
+      </div>
+      <div class="kw-modal-actions">
+        <button type="button" id="settingsCloseBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="kw-modal is-hidden" id="exportModal">
+    <div class="kw-modal-card">
+      <div class="kw-modal-title">Export</div>
+      <label class="kw-field kw-settings-field">
+        <span class="kw-field-label">Export name</span>
+        <input id="exportNameInput" type="text" placeholder="keywave-scene" />
+      </label>
+      <label class="kw-checkbox kw-export-checkbox">
+        <input id="exportIncludePlayer" type="checkbox" />
+        <span>Include player file</span>
+      </label>
+      <div class="kw-modal-actions">
+        <button type="button" id="exportDemoBtn">Demo only</button>
+        <button type="button" id="exportFullBtn">Full export</button>
+        <button type="button" id="exportCancelBtn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="kw-help" id="helpPanel">
+    <div class="kw-help-title">Controls</div>
+    <div class="kw-help-list">
+      <span>Space: Play/Pause</span>
+      <span>Shift+Space: Play to keyframe</span>
+      <span>Ctrl/Cmd+Z: Undo</span>
+    </div>
+    <button class="kw-help-hide" id="helpHideBtn" type="button">Hide</button>
+  </div>
+
+  <button class="kw-help-toggle is-hidden" id="helpShowBtn" type="button">Help</button>
+
+  <script src="./keywave-app.js" integrity="sha384-yQZ9HO16BXEJYeBT1pybWJQXccRRdrad0M7wZnlmbZzvedPj0eXpB8MRtVstFdLQ" crossorigin="anonymous"></script>
+</body>
+</html>
