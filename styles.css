@@ -93,8 +93,11 @@ body {
   min-width: 180px;
   max-height: 260px;
   overflow: auto;
-  background: #131318;
-  border: 1px solid #24242a;
+  background: rgba(19, 19, 24, 0.6);
+  border: 1px solid rgba(72, 72, 84, 0.55);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 10px;
   padding: 6px;
   display: none;
@@ -536,11 +539,14 @@ body {
   position: fixed;
   left: 12px;
   bottom: 80px;
-  background: rgba(19, 19, 24, 0.85);
-  border: 1px solid #24242a;
+  background: rgba(19, 19, 24, 0.6);
+  border: 1px solid rgba(72, 72, 84, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 10px;
-  padding: 8px 10px;
+  padding: 10px 12px;
   font-size: 11px;
+  min-width: 200px;
   color: #b8b8c2;
   display: grid;
   gap: 4px;
@@ -555,11 +561,45 @@ body {
   font-size: 11px;
   font-weight: 600;
   color: #eaeaea;
+  margin-bottom: 6px;
 }
 
 .kw-help-list {
   display: grid;
-  gap: 2px;
+  gap: 6px;
+  line-height: 1.3;
+  color: rgba(234, 234, 234, 0.85);
+}
+
+.kw-help-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.kw-help-key {
+  font-weight: 600;
+  color: rgba(234, 234, 234, 0.95);
+  white-space: nowrap;
+}
+
+.kw-help-desc {
+  white-space: nowrap;
+  color: #999;
+}
+
+.kw-help-dots {
+  height: 1px;
+  background-image: radial-gradient(
+    circle,
+    rgba(234, 234, 234, 0.25) 1px,
+    transparent 1px
+  );
+  background-size: 6px 1px;
+  background-repeat: repeat-x;
+  background-position: center;
+  opacity: 0.7;
 }
 
 .kw-help-hide {
@@ -571,6 +611,7 @@ body {
   padding: 4px 8px;
   font-size: 11px;
   cursor: pointer;
+  margin-top: 8px;
 }
 
 .kw-help-hide:hover {

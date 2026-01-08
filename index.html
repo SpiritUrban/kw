@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href="./favicon.ico" />
   <title>KEYWAVE Editor v0</title>
   <link rel="stylesheet" href="./styles.css" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X2X2Q2JX0M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-X2X2Q2JX0M');
+  </script>
 </head>
+
 <body>
+
   <div class="app">
     <header class="topbar">
       <div class="brand">
@@ -58,7 +70,8 @@
               <text x="0" y="8" text-anchor="middle">BLOB</text>
             </g>
             <g id="flower" data-kw-asset="flower">
-              <path d="M 0 -45 C 10 -65 35 -65 45 -45 C 65 -35 65 -10 45 0 C 65 10 65 35 45 45 C 35 65 10 65 0 45 C -10 65 -35 65 -45 45 C -65 35 -65 10 -45 0 C -65 -10 -65 -35 -45 -45 C -35 -65 -10 -65 0 -45 Z" />
+              <path
+                d="M 0 -45 C 10 -65 35 -65 45 -45 C 65 -35 65 -10 45 0 C 65 10 65 35 45 45 C 35 65 10 65 0 45 C -10 65 -35 65 -45 45 C -65 35 -65 10 -45 0 C -65 -10 -65 -35 -45 -45 C -35 -65 -10 -65 0 -45 Z" />
               <text x="0" y="8" text-anchor="middle">FLOW</text>
             </g>
 
@@ -91,19 +104,19 @@
               <button type="button" data-add-kf="opacity">+ Opacity</button>
               <button type="button" data-add-kf="visible">+ Visibility</button>
               <button type="button" data-add-kf="fill">+ Fill</button>
-          <button type="button" data-add-kf="blob">+ Blob</button>
-          <button type="button" data-add-kf="wiggle">+ Wiggle</button>
-          <button type="button" data-add-kf="wiggleSpeed">+ Wiggle Speed</button>
-          <button type="button" data-add-kf="wave">+ Wave</button>
-          <button type="button" data-add-kf="waveSpeed">+ Wave Speed</button>
-          <button type="button" data-add-kf="pinch">+ Pinch</button>
-          <button type="button" data-add-kf="twist">+ Twist</button>
-          <button type="button" data-add-kf="shearX">+ Shear X</button>
-          <button type="button" data-add-kf="shearY">+ Shear Y</button>
-          <button type="button" data-add-kf="jitterX">+ Jitter X</button>
-          <button type="button" data-add-kf="jitterY">+ Jitter Y</button>
-          <button type="button" data-add-kf="jitterSpeed">+ Jitter Speed</button>
-        </div>
+              <button type="button" data-add-kf="blob">+ Blob</button>
+              <button type="button" data-add-kf="wiggle">+ Wiggle</button>
+              <button type="button" data-add-kf="wiggleSpeed">+ Wiggle Speed</button>
+              <button type="button" data-add-kf="wave">+ Wave</button>
+              <button type="button" data-add-kf="waveSpeed">+ Wave Speed</button>
+              <button type="button" data-add-kf="pinch">+ Pinch</button>
+              <button type="button" data-add-kf="twist">+ Twist</button>
+              <button type="button" data-add-kf="shearX">+ Shear X</button>
+              <button type="button" data-add-kf="shearY">+ Shear Y</button>
+              <button type="button" data-add-kf="jitterX">+ Jitter X</button>
+              <button type="button" data-add-kf="jitterY">+ Jitter Y</button>
+              <button type="button" data-add-kf="jitterSpeed">+ Jitter Speed</button>
+            </div>
           </div>
         </div>
         <div class="kw-group" data-group="pivot">
@@ -255,35 +268,35 @@
                 <span class="kw-field-label">Wiggle</span>
                 <input id="wiggleInput" type="number" min="0" max="1" step="0.01" />
               </label>
-          <label class="kw-field kw-morph-field">
-            <span class="kw-field-label">Speed</span>
-            <input id="wiggleSpeedInput" type="number" min="0" step="0.1" />
-          </label>
-          <label class="kw-field kw-morph-field">
-            <span class="kw-field-label">Wave</span>
-            <input id="waveInput" type="number" min="0" max="1" step="0.01" />
-          </label>
-          <label class="kw-field kw-morph-field">
-            <span class="kw-field-label">Wave Speed</span>
-            <input id="waveSpeedInput" type="number" min="0" step="0.1" />
-          </label>
-          <label class="kw-field kw-morph-field">
-            <span class="kw-field-label">Pinch</span>
-            <input id="pinchInput" type="number" min="-1" max="1" step="0.01" />
-          </label>
-          <label class="kw-field kw-morph-field">
-            <span class="kw-field-label">Twist</span>
-            <input id="twistInput" type="number" min="-1" max="1" step="0.01" />
-          </label>
-          <label class="kw-field kw-morph-field">
-            <span class="kw-field-label">Shear X</span>
-            <input id="shearXInput" type="number" min="-1" max="1" step="0.01" />
-          </label>
-          <label class="kw-field kw-morph-field">
-            <span class="kw-field-label">Shear Y</span>
-            <input id="shearYInput" type="number" min="-1" max="1" step="0.01" />
-          </label>
-        </div>
+              <label class="kw-field kw-morph-field">
+                <span class="kw-field-label">Speed</span>
+                <input id="wiggleSpeedInput" type="number" min="0" step="0.1" />
+              </label>
+              <label class="kw-field kw-morph-field">
+                <span class="kw-field-label">Wave</span>
+                <input id="waveInput" type="number" min="0" max="1" step="0.01" />
+              </label>
+              <label class="kw-field kw-morph-field">
+                <span class="kw-field-label">Wave Speed</span>
+                <input id="waveSpeedInput" type="number" min="0" step="0.1" />
+              </label>
+              <label class="kw-field kw-morph-field">
+                <span class="kw-field-label">Pinch</span>
+                <input id="pinchInput" type="number" min="-1" max="1" step="0.01" />
+              </label>
+              <label class="kw-field kw-morph-field">
+                <span class="kw-field-label">Twist</span>
+                <input id="twistInput" type="number" min="-1" max="1" step="0.01" />
+              </label>
+              <label class="kw-field kw-morph-field">
+                <span class="kw-field-label">Shear X</span>
+                <input id="shearXInput" type="number" min="-1" max="1" step="0.01" />
+              </label>
+              <label class="kw-field kw-morph-field">
+                <span class="kw-field-label">Shear Y</span>
+                <input id="shearYInput" type="number" min="-1" max="1" step="0.01" />
+              </label>
+            </div>
           </div>
         </div>
         <div class="kw-group" data-group="motion">
@@ -368,9 +381,12 @@
     <div class="kw-modal-card">
       <div class="kw-modal-title">Settings</div>
       <div class="kw-settings-presets">
-        <button type="button" class="kw-btn kw-preset-btn" data-preset="fine" title="Undo 150ms / Keyframes 120ms">Fine</button>
-        <button type="button" class="kw-btn kw-preset-btn" data-preset="balanced" title="Undo 400ms / Keyframes 250ms">Balanced</button>
-        <button type="button" class="kw-btn kw-preset-btn" data-preset="coarse" title="Undo 900ms / Keyframes 600ms">Coarse</button>
+        <button type="button" class="kw-btn kw-preset-btn" data-preset="fine"
+          title="Undo 150ms / Keyframes 120ms">Fine</button>
+        <button type="button" class="kw-btn kw-preset-btn" data-preset="balanced"
+          title="Undo 400ms / Keyframes 250ms">Balanced</button>
+        <button type="button" class="kw-btn kw-preset-btn" data-preset="coarse"
+          title="Undo 900ms / Keyframes 600ms">Coarse</button>
       </div>
       <div class="kw-settings-row">
         <label class="kw-field kw-settings-field">
@@ -410,15 +426,63 @@
   <div class="kw-help" id="helpPanel">
     <div class="kw-help-title">Controls</div>
     <div class="kw-help-list">
-      <span>Space: Play/Pause</span>
-      <span>Shift+Space: Play to keyframe</span>
-      <span>Ctrl/Cmd+Z: Undo</span>
+      <div class="kw-help-row">
+        <span class="kw-help-key">Space</span>
+        <span class="kw-help-dots"></span>
+        <span class="kw-help-desc">Play/Pause</span>
+      </div>
+      <div class="kw-help-row">
+        <span class="kw-help-key">Shift+Space</span>
+        <span class="kw-help-dots"></span>
+        <span class="kw-help-desc">Play to keyframe</span>
+      </div>
+      <div class="kw-help-row">
+        <span class="kw-help-key">Ctrl/Cmd+Z</span>
+        <span class="kw-help-dots"></span>
+        <span class="kw-help-desc">Undo</span>
+      </div>
+      <div class="kw-help-row">
+        <span class="kw-help-key">Shift+Click</span>
+        <span class="kw-help-dots"></span>
+        <span class="kw-help-desc">Multi-select</span>
+      </div>
+      <div class="kw-help-row">
+        <span class="kw-help-key">Arrows</span>
+        <span class="kw-help-dots"></span>
+        <span class="kw-help-desc">Nudge selection</span>
+      </div>
+      <div class="kw-help-row">
+        <span class="kw-help-key">Shift+Arrows</span>
+        <span class="kw-help-dots"></span>
+        <span class="kw-help-desc">Nudge faster</span>
+      </div>
+      <div class="kw-help-row">
+        <span class="kw-help-key">Alt+Drag</span>
+        <span class="kw-help-dots"></span>
+        <span class="kw-help-desc">Duplicate</span>
+      </div>
+      <div class="kw-help-row">
+        <span class="kw-help-key">Ctrl/Cmd+C</span>
+        <span class="kw-help-dots"></span>
+        <span class="kw-help-desc">Copy selection</span>
+      </div>
+      <div class="kw-help-row">
+        <span class="kw-help-key">Ctrl/Cmd+V</span>
+        <span class="kw-help-dots"></span>
+        <span class="kw-help-desc">Paste selection</span>
+      </div>
+      <div class="kw-help-row">
+        <span class="kw-help-key">Delete</span>
+        <span class="kw-help-dots"></span>
+        <span class="kw-help-desc">Remove selection</span>
+      </div>
     </div>
     <button class="kw-help-hide" id="helpHideBtn" type="button">Hide</button>
   </div>
 
   <button class="kw-help-toggle is-hidden" id="helpShowBtn" type="button">Help</button>
 
-  <script src="./keywave-app.76abd89dc8.js" integrity="sha384-MM1hyeNCcqW5bFytEKVdy9gMdFeb+ELrMAmzI0A3ZomWGXNZGABxjmMG4+tvkxPt" crossorigin="anonymous"></script>
+  <script src="./keywave-app.ae88580d59.js" integrity="sha384-v7h/SmJkakxrriY/RZKHHD+1lCrAq14lzNsWhoQKs0lL0SRKvzSbU1AygpRc4sFw" crossorigin="anonymous"></script>
 </body>
+
 </html>
